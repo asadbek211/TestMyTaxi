@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable-v24/settings_selector.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable-v24/shape_notification_count.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_drawer_icon.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_frieze.xml" value="0.217" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_orders.xml" value="0.16666666666666666" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_plus.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_tariff.xml" value="0.217" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_theme_icon.xml" value="0.217" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/new_ripple_effect.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/settings_selector.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/shape_bottom_sheet.xml" value="0.217" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/shape_category.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/shape_category_night.xml" value="0.217" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/shape_drawer.xml" value="0.217" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/shape_notification.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/shape_notification_count.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/activity_animate_marker.xml" value="0.2982456140350877" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/activity_main.xml" value="0.2943722943722944" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/content_main.xml" value="0.2982456140350877" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/fragment_home.xml" value="0.29736842105263156" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/fragment_tariff.xml" value="0.2982456140350877" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/nav_header_main.xml" value="0.2982456140350877" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/tariff_dialog.xml" value="0.2982456140350877" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/menu/main_drawer.xml" value="0.2982456140350877" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

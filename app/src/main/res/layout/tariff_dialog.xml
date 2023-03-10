@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bottom_sheet">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Ваш тариф"
+        android:textColor="@color/cat_name_color"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTariffName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Комфорт"
+        android:textColor="#EDB118"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <ImageView
+        android:id="@+id/ivFrieze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/taxi_komfort"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardPrice"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        app:cardBackgroundColor="#402EEF"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvTariffName"
+        app:layout_constraintTop_toBottomOf="@+id/tvTariffName"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/ivPriceImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#402EEF"
+            android:padding="4dp"
+            android:src="@drawable/ic_theme_icon"
+            app:tint="@color/white" />
+    </com.google.android.material.card.MaterialCardView>
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center_vertical"
+        android:text="9 000 Сумм"
+        android:textColor="#402EEF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cardPrice"
+        app:layout_constraintStart_toEndOf="@+id/cardPrice"
+        app:layout_constraintTop_toTopOf="@+id/cardPrice" />
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvConditioner"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/tvPrice"
+        app:layout_constraintTop_toBottomOf="@+id/tvTariffName"
+        app:layout_constraintVertical_bias="0.0"
+        android:id="@+id/ivConditionerImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/conditioner"
+        app:tint="@color/yellow_color" />
+    <TextView
+        android:id="@+id/tvConditioner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center_vertical"
+        android:text="Кондиционер"
+        android:textColor="@color/yellow_color"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivConditionerImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivConditionerImage" />
+</androidx.constraintlayout.widget.ConstraintLayout>
