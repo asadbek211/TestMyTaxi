@@ -1,16 +1,15 @@
 package com.bizmiz.testtopshiriq.ui.home
 
+import android.animation.TypeEvaluator
+import android.animation.ValueAnimator
 import android.content.Context
-import android.content.Intent
 import android.content.IntentFilter
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -18,29 +17,25 @@ import android.view.View
 import android.view.WindowInsetsController
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bizmiz.testtopshiriq.R
 import com.bizmiz.testtopshiriq.app.App
 import com.bizmiz.testtopshiriq.databinding.FragmentHomeBinding
 import com.bizmiz.testtopshiriq.receiver.GetLocationReceiver
-import com.bizmiz.testtopshiriq.receiver.RestartForegroundServiceReceiver
-import com.bizmiz.testtopshiriq.service.MyForegroundService
 import com.bizmiz.testtopshiriq.ui.MainActivity
 import com.bizmiz.testtopshiriq.ui.home.tariff.TariffDialog
 import com.bizmiz.testtopshiriq.util.UserLocationResource
-import com.bizmiz.testtopshiriq.util.viewBinding
-import com.bizmiz.testtopshiriq.viewModel.UserLocationViewModel
-import com.mapbox.geojson.FeatureCollection
+import com.bizmiz.testtopshiriq.util.isUsingNightModeResources
+import com.mapbox.geojson.Feature
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.Style
+import com.mapbox.maps.extension.style.layers.addLayer
+import com.mapbox.maps.extension.style.layers.generated.SymbolLayer
 import com.mapbox.maps.extension.style.sources.addSource
 import com.mapbox.maps.extension.style.sources.generated.GeoJsonSource
-import com.mapbox.maps.plugin.annotation.annotations
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
-import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
 import com.mapbox.maps.plugin.compass.compass
-import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.scalebar.scalebar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +44,8 @@ import javax.inject.Inject
 
 
 class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
-    private val binding by viewBinding { FragmentHomeBinding.bind(it) }
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var userLocationViewModel: UserLocationViewModel
@@ -57,28 +53,23 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
     @Inject
     lateinit var getLocationReceiver: GetLocationReceiver
 
-    @Inject
-    lateinit var restartForegroundServiceReceiver: RestartForegroundServiceReceiver
     private var isCameraPosition = true
     private var zoomCount = 16.5
-    private var rotateCount: Double? = null
+    private var currentPosition: Point? = null
+    private var geoJsonSource: GeoJsonSource? = null
+    private var animator: ValueAnimator? = null
+    private var symbolLayer: SymbolLayer? = null
     private lateinit var sensor: Sensor
-    private var userLocation: Location? = null
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
         userLocationViewModel.getUsersLocation()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            requireActivity().window.decorView.windowInsetsController?.setSystemBarsAppearance(
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            )
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.white)
-        }
-        binding.cardNavDraw.setOnClickListener {
-            (activity as MainActivity).openDrawer()
-        }
+        getUserLocationDb()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentHomeBinding.bind(view)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             requireActivity().window.decorView.windowInsetsController?.setSystemBarsAppearance(
                 0,
@@ -87,20 +78,29 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireContext(), R.color.black)
         }
-
-        startService()
         binding.mapView.compass.enabled = false
         binding.mapView.scalebar.enabled = false
-        val bitmap = Bitmap.createScaledBitmap(
-            BitmapFactory.decodeResource(
-                this.resources, R.drawable.car_icon
-            ), 55, 95, true
-        )
-
-        val pointAnnotationManager = binding.mapView.annotations.createPointAnnotationManager()
+        binding.mapView.gestures.rotateEnabled = false
+        styleAddSource()
         getLocationReceiver.getLocationListener { location ->
-            userLocation = location
-            addPoint(bitmap, pointAnnotationManager)
+            currentPosition = Point.fromLngLat(location.longitude, location.latitude)
+            if (animator != null && animator!!.isStarted) {
+                currentPosition = animator!!.animatedValue as Point
+                animator!!.cancel()
+            }
+            animator = ValueAnimator().apply {
+                setObjectValues(
+                    currentPosition,
+                    Point.fromLngLat(location.longitude, location.latitude)
+                )
+                setEvaluator(pointEvaluator)
+                addUpdateListener {
+                    geoJsonSource?.feature(Feature.fromGeometry(it.animatedValue as Point))
+                }
+                duration = 2000
+                start()
+            }
+            currentPosition = Point.fromLngLat(location.longitude, location.latitude)
             if (isCameraPosition) {
                 isCameraPosition = false
                 val cameraPosition = CameraOptions.Builder()
@@ -115,8 +115,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
         }
         onClickInstallation()
         rotationChanged()
-        getUserLocation()
-        if (isUsingNightModeResources()) {
+        if (isUsingNightModeResources(requireContext())) {
             binding.mapView.getMapboxMap().loadStyleUri(Style.DARK)
             binding.ivOrders.setBackgroundResource(R.drawable.shape_category_night)
             binding.ivFrieze.setBackgroundResource(R.drawable.shape_category_night)
@@ -126,6 +125,39 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
             binding.ivOrders.setBackgroundResource(R.drawable.shape_category)
             binding.ivFrieze.setBackgroundResource(R.drawable.shape_category)
             binding.ivTariff.setBackgroundResource(R.drawable.shape_category)
+        }
+
+    }
+
+    private fun styleAddSource() {
+        val bitmap = Bitmap.createScaledBitmap(
+            BitmapFactory.decodeResource(
+                this.resources, R.drawable.car_icon
+            ), 55, 95, true
+        )
+        geoJsonSource = GeoJsonSource.Builder(
+            "source-id",
+        ).build().feature(
+            Feature.fromGeometry(
+                currentPosition?.let {
+                    Point.fromLngLat(
+                        it.longitude(),
+                        currentPosition!!.latitude()
+                    )
+                }
+            )
+        )
+        symbolLayer = SymbolLayer("layer-id", "source-id").iconImage("marker_icon")
+            .iconIgnorePlacement(true).iconAllowOverlap(true)
+        binding.mapView.getMapboxMap().getStyle { style ->
+            style.addImage(
+                "marker_icon", bitmap
+            )
+            style.addSource(geoJsonSource!!)
+            style.addLayer(
+                symbolLayer!!
+            )
+
         }
     }
 
@@ -144,17 +176,24 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
 
             override fun onSensorChanged(sensorEvent: SensorEvent?) {
                 if (sensorEvent?.sensor?.type == Sensor.TYPE_ORIENTATION) {
-                    rotateCount = sensorEvent.values[0].toDouble()
-                }
-                if (sensorEvent?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
-                    rotateCount = null
+                    symbolLayer?.iconRotate(sensorEvent.values[0].toDouble())
                 }
             }
         }, sensor, SensorManager.SENSOR_DELAY_GAME)
     }
 
-    private fun getUserLocation() {
-        CoroutineScope(Dispatchers.Main).launch {
+    private val pointEvaluator: TypeEvaluator<Point> =
+        TypeEvaluator<Point> { fraction, startValue, endValue ->
+            Point.fromLngLat(
+                startValue.longitude()
+                        + ((endValue.longitude() - startValue.longitude()) * fraction),
+                startValue.latitude()
+                        + (endValue.latitude() - startValue.latitude()) * fraction
+            )
+        }
+
+    private fun getUserLocationDb() {
+        CoroutineScope(Dispatchers.IO).launch {
             userLocationViewModel.getStateFlow().collect {
                 when (it) {
                     is UserLocationResource.Loading -> {}
@@ -167,52 +206,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
         }
     }
 
-    private fun isUsingNightModeResources(): Boolean {
-        return when (resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> true
-            Configuration.UI_MODE_NIGHT_NO -> false
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> false
-            else -> false
-        }
-    }
-
-    private fun addPoint(
-        bitmap: Bitmap,
-        pointAnnotationManager: PointAnnotationManager
-    ) {
-        val pointAnnotationOptions = if (rotateCount != null) {
-            userLocation?.let { Point.fromLngLat(it.longitude, userLocation!!.latitude) }?.let {
-                PointAnnotationOptions()
-                    .withPoint(it)
-                    .withIconImage(bitmap)
-                    .withIconRotate(rotateCount!!)
-            }
-
-        } else {
-            userLocation?.let { Point.fromLngLat(it.longitude, userLocation!!.latitude) }?.let {
-                PointAnnotationOptions()
-                    .withPoint(it)
-                    .withIconImage(bitmap)
-            }
-        }
-        pointAnnotationManager.deleteAll()
-        if (pointAnnotationOptions != null) {
-            pointAnnotationManager.create(pointAnnotationOptions)
-        }
-
-    }
     private fun onClickInstallation() {
         binding.cardZoomOut.setOnClickListener(this)
         binding.cardLocation.setOnClickListener(this)
         binding.cardZoomIn.setOnClickListener(this)
         binding.cardTariff.setOnClickListener(this)
-    }
-
-    private fun startService() {
-        val serviceIntent = Intent(requireActivity(), MyForegroundService::class.java)
-        serviceIntent.putExtra("inputExtra", "Служба переднего плана запущена.")
-        ContextCompat.startForegroundService(requireContext(), serviceIntent)
+        binding.ivOrdersClick.setOnClickListener(this)
+        binding.cardNavDraw.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -220,12 +220,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
             R.id.cardLocation -> {
                 val cameraPosition = CameraOptions.Builder()
                     .center(
-                        userLocation?.let {
-                            Point.fromLngLat(
-                                it.longitude,
-                                userLocation!!.latitude
-                            )
-                        }
+                        currentPosition
                     )
                     .zoom(zoomCount)
                     .build()
@@ -235,12 +230,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
                 zoomCount += 1
                 val cameraPosition = CameraOptions.Builder()
                     .center(
-                        userLocation?.let {
-                            Point.fromLngLat(
-                                it.longitude,
-                                userLocation!!.latitude
-                            )
-                        }
+                        currentPosition
                     )
                     .zoom(zoomCount)
                     .build()
@@ -252,31 +242,29 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
                 }
                 val cameraPosition = CameraOptions.Builder()
                     .center(
-                        userLocation?.let {
-                            Point.fromLngLat(
-                                it.longitude,
-                                userLocation!!.latitude
-                            )
-                        }
+                        currentPosition
                     )
                     .zoom(zoomCount)
                     .build()
                 binding.mapView.getMapboxMap().setCamera(cameraPosition)
             }
-            R.id.cardTariff->{
+            R.id.cardTariff -> {
                 TariffDialog(this)
+            }
+            R.id.cardNavDraw -> {
+                (activity as MainActivity).openDrawer()
+            }
+            R.id.ivOrdersClick -> {
+                findNavController().navigate(R.id.nav_home_to_orders)
             }
         }
     }
 
     override fun onStart() {
         super.onStart()
-        IntentFilter("ACTION_CURRENT_LOCATION").also {
-            requireActivity().registerReceiver(getLocationReceiver, it)
-        }
         requireActivity().registerReceiver(
-            restartForegroundServiceReceiver,
-            IntentFilter("restartservice")
+            getLocationReceiver,
+            IntentFilter("ACTION_CURRENT_LOCATION")
         )
         isCameraPosition = true
         binding.mapView.onStart()
@@ -284,8 +272,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
 
     override fun onStop() {
         super.onStop()
-        requireActivity().unregisterReceiver(getLocationReceiver)
-        requireActivity().unregisterReceiver(restartForegroundServiceReceiver)
         binding.mapView.onStop()
     }
 
@@ -294,4 +280,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener {
         binding.mapView.onLowMemory()
     }
 
+    override fun onDestroy() {
+        requireActivity().unregisterReceiver(getLocationReceiver)
+        super.onDestroy()
+    }
 }

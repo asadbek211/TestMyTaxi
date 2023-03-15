@@ -5,10 +5,14 @@
       <map>
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable-v24/settings_selector.xml" value="0.1935" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable-v24/shape_notification_count.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_arrow_down.xml" value="0.217" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_dots.xml" value="0.217" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_drawer_icon.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_end_loc.xml" value="0.217" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_frieze.xml" value="0.217" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_orders.xml" value="0.16666666666666666" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_plus.xml" value="0.1935" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_start_loc.xml" value="0.217" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_tariff.xml" value="0.217" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/ic_theme_icon.xml" value="0.217" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/new_ripple_effect.xml" value="0.1935" />
@@ -21,10 +25,13 @@
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/drawable/shape_notification_count.xml" value="0.1935" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/activity_animate_marker.xml" value="0.2982456140350877" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/activity_main.xml" value="0.2943722943722944" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/app_bar_main.xml" value="0.2982456140350877" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/content_main.xml" value="0.2982456140350877" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/fragment_home.xml" value="0.29736842105263156" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/fragment_orders.xml" value="0.2982456140350877" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/fragment_tariff.xml" value="0.2982456140350877" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/nav_header_main.xml" value="0.2982456140350877" />
+        <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/orders_item.xml" value="0.29736842105263156" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/layout/tariff_dialog.xml" value="0.2982456140350877" />
         <entry key="..\:/shaxsiy/AndroidStudioProjects/AndroidStudioProjects/TestTopshiriq/app/src/main/res/menu/main_drawer.xml" value="0.2982456140350877" />
       </map>

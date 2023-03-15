@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestTopshiriq"
-        tools:targetApi="31">
+        tools:targetApi="s">
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -35,21 +35,15 @@
         <service
             android:name=".service.MyForegroundService"
             android:enabled="true"
-            android:exported="false"
+            android:foregroundServiceType="location"
+            android:exported="true"
             android:launchMode="singleInstance" />
 
         <receiver
             android:name=".receiver.GetLocationReceiver"
             android:enabled="true"
-            android:exported="true" />
-        <receiver
-            android:name=".receiver.RestartForegroundServiceReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="restartservice" />
-            </intent-filter>
-        </receiver>
+            android:exported="true"
+            tools:ignore="Instantiatable" />
     </application>
 
 </manifest>

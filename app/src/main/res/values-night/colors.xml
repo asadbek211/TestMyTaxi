@@ -15,4 +15,10 @@
     <color name="naw_draw_item_click_background">#7A000000</color>
     <color name="user_name_color">#FFFFFF</color>
     <color name="naw_draw_text_color">#FFFFFF</color>
+    <color name="arrow_back_color">#FFFFFF</color>
+    <color name="orders_color">#FF000000</color>
+    <color name="order_bottom">#B5F8F8F8</color>
+    <color name="order_bottom_text">#FF000000</color>
+    <color name="orders_background_color">#212121</color>
+    <color name="bottom_sheet_color">#FF000000</color>
 </resources>

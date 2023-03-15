@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.location.Location
+import android.util.Log
 import com.bizmiz.testtopshiriq.database.entity.UserLocationEntity
 import com.bizmiz.testtopshiriq.di.repository.UserLocationRepository
 import kotlinx.coroutines.CoroutineScope
@@ -11,9 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 class GetLocationReceiver @Inject constructor(
-    private val userLocationRepository: UserLocationRepository,
+    private val userLocationRepository: UserLocationRepository
 ) : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action == "ACTION_CURRENT_LOCATION") {
@@ -26,6 +26,7 @@ class GetLocationReceiver @Inject constructor(
                         latitude = location.latitude.toString()
                     )
                 )
+                Log.d("USER_LOC", "Lat:${location.latitude},Long:${location.longitude}")
             }
         }
     }

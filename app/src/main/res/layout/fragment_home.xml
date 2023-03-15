@@ -264,6 +264,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/shape_category"
                 android:padding="12dp"
+                app:tint="@color/cat_color"
                 android:src="@drawable/ic_orders"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -292,7 +293,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="4dp"
-                android:text="1"
+                android:text="4"
                 android:textColor="@color/white"
                 android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivOrders"
@@ -339,6 +340,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/shape_category"
                 android:padding="12dp"
+                app:tint="@color/cat_color"
                 android:src="@drawable/ic_frieze" />
         </com.google.android.material.card.MaterialCardView>
 
@@ -381,6 +383,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/shape_category"
                 android:padding="12dp"
+                app:tint="@color/cat_color"
                 android:src="@drawable/ic_tariff" />
         </com.google.android.material.card.MaterialCardView>
 

@@ -15,7 +15,6 @@ class DatabaseModule(var context: Context) {
     @Singleton
     fun provideContext(): Context = context
 
-
     @Provides
     @Singleton
     fun provideUserLocationDatabase(): UserLocationDatabase {

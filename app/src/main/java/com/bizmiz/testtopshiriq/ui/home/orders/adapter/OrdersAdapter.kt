@@ -1,66 +1,50 @@
-package com.bizmiz.kunlikishlar.ui.home
+package com.bizmiz.testtopshiriq.ui.home.orders.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bizmiz.kunlikishlar.R
-import com.bizmiz.kunlikishlar.databinding.JobItemBinding
+import com.bizmiz.testtopshiriq.databinding.OrdersItemBinding
+import javax.inject.Inject
 
 
-class NewJobsAdapter : RecyclerView.Adapter<NewJobsAdapter.Myholder>() {
-    private var onclick: (appealId: String) -> Unit = {}
-    fun onClickListener(onclick: (appealId: String) -> Unit) {
-        this.onclick = onclick
-    }
-
-    val listImage: ArrayList<Int> = arrayListOf(
-        R.drawable.job1,
-        R.drawable.job2,
-        R.drawable.job3,
-        R.drawable.job5
+class OrdersAdapter @Inject constructor() : RecyclerView.Adapter<OrdersAdapter.MyViewHolder>() {
+    val startLocList: List<String> = listOf(
+        "Шахрисабз, 20",
+        "2 проезд Фаргона йули, 29",
+        "5 тупик Фаргона йули, 13",
+        "Абдурауфа Фитрата, 6а"
+    )
+    val dataList: List<String> = listOf(
+        "22:54",
+        "22:34",
+        "21:34",
+        "21:21"
+    )
+    val endLocList: List<String> = listOf(
+        "Абдурауфа Фитрата, 83а",
+        "Фаргона йули, 101",
+        "2 проезд Фаргона йули, 29",
+        "Мухтара Ашрафи, 34/1"
     )
 
-    inner class Myholder(private val binding: JobItemBinding) :
+    inner class MyViewHolder(private val binding: OrdersItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val listName: List<String> = listOf(
-            "Payvandchilarga kunlik ish bor narxi kelishiladi",
-            "Quruvchi kerak Ichki va tashqi qurilish ishlari",
-            "Ofitsiantlikga ishga olamiz",
-            "Oshxonaga oshpazga yordamchi kerak"
-        )
-        private val dataList: List<String> = listOf(
-            "Bugun,12:54",
-            "Bugun,10:32",
-            "Kecha,22:00",
-            "12-Yanvar"
-        )
-        private val locationList: List<String> = listOf(
-            "Amudaryo tumani",
-            "Nukus shahri",
-            "Nukus shahri",
-            "Beruniy Tumani"
-        )
-
         fun populateModel(position: Int) {
-            binding.catImage.setImageResource(listImage[position])
-            binding.catName.text = listName[position]
+            binding.tvStartLoc.text = startLocList[position]
             binding.tvData.text = dataList[position]
-            binding.tvLocation.text = locationList[position]
-//            binding.homeCard.setOnClickListener {
-//                onclick.invoke(listName[position])
-//            }
+            binding.tvEndLoc.text = endLocList[position]
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Myholder {
-        val jobItemBinding =
-            JobItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return Myholder(jobItemBinding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val ordersItemBinding =
+            OrdersItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(ordersItemBinding)
     }
 
-    override fun onBindViewHolder(holder: Myholder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.populateModel(position)
     }
 
-    override fun getItemCount(): Int = listImage.size
+    override fun getItemCount(): Int = startLocList.size
 }

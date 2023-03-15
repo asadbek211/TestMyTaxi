@@ -9,5 +9,14 @@
         tools:layout="@layout/fragment_home"
         android:id="@+id/nav_home"
         android:name="com.bizmiz.testtopshiriq.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/nav_home_to_orders"
+            app:destination="@id/orders" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_orders"
+        android:id="@+id/orders"
+        android:name="com.bizmiz.testtopshiriq.ui.home.orders.OrdersFragment"
+        android:label="Orders" />
 </navigation>

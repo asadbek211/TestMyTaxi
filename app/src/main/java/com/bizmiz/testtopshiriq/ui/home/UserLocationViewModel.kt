@@ -1,4 +1,4 @@
-package com.bizmiz.testtopshiriq.viewModel
+package com.bizmiz.testtopshiriq.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

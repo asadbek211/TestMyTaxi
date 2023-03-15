@@ -1,6 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/cardMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/orders_color"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <ImageView
+              android:layout_marginTop="15dp"
+              android:layout_marginStart="15dp"
+              android:id="@+id/ivStartImage"
+              android:layout_width="35dp"
+              android:layout_height="35dp"
+              android:scaleType="fitXY"
+              android:src="@drawable/ic_start_loc"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+          <TextView
+              android:id="@+id/tvStartLoc"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginStart="5dp"
+              android:layout_marginTop="5dp"
+              android:fontFamily="@font/roboto_medium"
+              android:text="Шахрисабз, 20"
+              android:textColor="@color/arrow_back_color"
+              android:textSize="16dp"
+              app:layout_constraintBottom_toBottomOf="@+id/ivStartImage"
+              app:layout_constraintStart_toEndOf="@+id/ivStartImage"
+              app:layout_constraintTop_toTopOf="@+id/ivStartImage"
+              app:layout_constraintVertical_bias="0.0" />
+          <ImageView
+              android:layout_marginTop="10dp"
+              android:id="@+id/ivEndImage"
+              android:layout_width="35dp"
+              android:layout_height="35dp"
+              android:scaleType="fitXY"
+              android:src="@drawable/ic_end_loc"
+              app:layout_constraintStart_toStartOf="@+id/ivStartImage"
+              app:layout_constraintTop_toBottomOf="@+id/ivStartImage" />
+
+          <TextView
+              android:id="@+id/tvEndLoc"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_marginStart="5dp"
+              android:layout_marginTop="5dp"
+              android:fontFamily="@font/roboto_medium"
+              android:text="Абдурауфа Фитрата, 83а"
+              android:textColor="@color/arrow_back_color"
+              android:textSize="16dp"
+              app:layout_constraintBottom_toBottomOf="@+id/ivEndImage"
+              app:layout_constraintStart_toEndOf="@+id/ivEndImage"
+              app:layout_constraintTop_toTopOf="@+id/ivEndImage"
+              app:layout_constraintVertical_bias="0.0" />
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="45dp"
+              android:layout_marginTop="15dp"
+              android:background="@color/order_bottom"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/ivEndImage"
+              app:layout_constraintVertical_bias="0.0">
+              <TextView
+                  android:id="@+id/tvData"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_marginStart="20dp"
+                  android:textStyle="bold"
+                  android:fontFamily="@font/roboto_medium"
+                  android:text="20:15"
+                  android:textColor="@color/order_bottom_text"
+                  android:textSize="15dp"/>
+              <ImageView
+                  android:layout_width="5dp"
+                  android:layout_height="match_parent"
+                  android:layout_marginStart="10dp"
+                  android:gravity="center_vertical"
+                  android:paddingTop="2dp"
+                  android:src="@drawable/ic_dots" />
+              <TextView
+                  android:id="@+id/tvTariff"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_marginStart="10dp"
+                  android:textStyle="bold"
+                  android:fontFamily="@font/roboto_medium"
+                  android:text="Комфорт"
+                  android:textColor="@color/order_bottom_text"
+                  android:textSize="15dp"/>
+          </LinearLayout>
+
+          <ImageView
+              android:layout_marginEnd="10dp"
+              android:layout_marginBottom="10dp"
+              android:id="@+id/ivCar"
+              android:layout_width="120dp"
+              android:layout_height="60dp"
+              android:src="@drawable/taxi_komfort"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent" />
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
